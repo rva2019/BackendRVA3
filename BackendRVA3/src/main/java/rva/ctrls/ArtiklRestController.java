@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,9 @@ public class ArtiklRestController {
 
 	@Autowired
 	private ArtiklRepository artiklRepository;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate; 
 	
 	@GetMapping("artikl")
 	public Collection<Artikl> getArtikli() {
@@ -42,6 +46,8 @@ public class ArtiklRestController {
 		if(!artiklRepository.existsById(id))
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		artiklRepository.deleteById(id);
+		if(id == -100)
+			jdbcTemplate.execute(" INSERT INTO \"artikl\"(\"id\", \"naziv\", \"proizvodjac\") VALUES (-100, 'Naziv test', 'Proizvodjac test')" );
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
