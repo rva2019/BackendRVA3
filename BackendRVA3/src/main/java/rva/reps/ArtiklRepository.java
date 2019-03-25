@@ -7,7 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import rva.jpa.Artikl;
 
 public interface ArtiklRepository extends JpaRepository<Artikl, Integer> {
-
-	Collection<Artikl> findByNazivContainingIgnoreCase(String naziv);
-	
+	Collection<Artikl> findByNazivContainingIgnoreCase(String naziv);	
 }
