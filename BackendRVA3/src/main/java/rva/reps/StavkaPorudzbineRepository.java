@@ -15,3 +15,4 @@ public interface StavkaPorudzbineRepository extends JpaRepository<StavkaPorudzbi
 	@Query(value = "select coalesce(max(redni_broj)+1, 1) from stavka_porudzbine where porudzbina = ?1", nativeQuery = true)
 	Integer nextRBr (int idPorudzbine);
 }
+ 
