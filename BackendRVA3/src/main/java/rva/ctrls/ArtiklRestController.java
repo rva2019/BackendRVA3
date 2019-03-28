@@ -45,7 +45,7 @@ public class ArtiklRestController {
 	@GetMapping("artiklNaziv/{naziv}")
 	public Collection<Artikl> getArtiklByNaziv(@PathVariable("naziv") String naziv) {
 		return artiklRepository.findByNazivContainingIgnoreCase(naziv);
-	}
+	} 
 	
 	@ApiOperation(value = "Briše artikl iz baze podataka čiji je id vrednost prosleđena kao path varijabla")
 	@DeleteMapping("artikl/{id}")
