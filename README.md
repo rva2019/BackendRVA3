@@ -1,27 +1,28 @@
-# FrontendRva3
+## Preuzimanje projekta
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+Ukoliko nije instaliran, potrebno je instalirati [Git](https://git-scm.com/download/win) na računaru.
 
-## Development server
+Koraci za kloniranje projekta sa GitHub-a:
+- U terminalu Visual Studio Code-a pozicionirati se na folder u koji će biti kloniran projekat
+- Naredbom **git clone https://github.com/rva2019/BackendRVA3**  
+projekat je kloniran sa GitHub-a
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Pokretanje aplikacije
 
-## Code scaffolding
+U integrisanom Terminalu VSC-a, **pozicionirati se unutar kloniranog projekta** i izvršiti sledeće naredbe:
+- **npm install** - za preuzimanje node-modules (modula potrebnih za pokretanje aplikacije) 
+- **ng serve -o** - pokretanje aplikacije (aplikacija je pokrenuta na portu 4200 i automatski se otvara default browser na linku: http://localhost:4200/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Komitovanje projekta
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+U integrisanom Terminalu VSC-a izvršiti sledeće naredbe:
+- **git init** - samo prvi put  
+- **git add .** - dodaje modifikovane i nove fajlove na stage  
+Ukoliko ne prepoznaje korisnika potrebno je pokrenuti (zameniti sa Vašim e-mail-om i username-om):  
+**git config --global user.email "email@example.com"   
+git config --global user.name "username"**
+- **git commit -m "Inicijalni commit"** - komituje u lokalni repozitorijum sa odgovarajućim komentarom
+- **git remote add origin https://github.com/rva2019/ITXX-XXXX-Prezime-Ime** - dodaje putanju do GitHub repozitorijuma (zameniti url sa url-om vašeg repozitorijuma)
+- **git pull origin master --allow-unrelated-histories** - sinhronizuje repozitorijum (zbog backend-a koji se nalazi u istom repozitorijumu)
+- **git push origin master** - "šalje" u GitHub repozitorijum (uneti username i password za GitHub ukoliko zatraži)
