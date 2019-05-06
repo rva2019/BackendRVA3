@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { VoziloComponent } from './components/vozilo.component';
+import { VoziloComponent } from './components/vozilo/vozilo.component';
 import { AutomobilComponent } from './components/automobil/automobil.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
