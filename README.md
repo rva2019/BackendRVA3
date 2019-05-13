@@ -9,6 +9,18 @@ projekat je kloniran sa GitHub-a
 
 ## Pokretanje aplikacije
 
+**Pre pokretanja frontend aplikacije, pokrenuti backend aplikaciju.**
+
+###### CORS
+
+Instalirati Chrome plugin: [CORS](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi)
+
+dodati u **Intercepted URLs or URL patterns** sledeće URL-ove:
+
+- http://localhost:8083/
+- http://localhost:4200/
+
+Omogućiti **Enable cross-origin resource sharing** u Chrome-u.
 U integrisanom Terminalu VSC-a, **pozicionirati se unutar kloniranog projekta** i izvršiti sledeće naredbe:
 - **npm install** - za preuzimanje node-modules (modula potrebnih za pokretanje aplikacije) 
 - **ng serve -o** - pokretanje aplikacije (aplikacija je pokrenuta na portu 4200 i automatski se otvara default browser na linku: http://localhost:4200/)
