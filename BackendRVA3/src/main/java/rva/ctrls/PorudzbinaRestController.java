@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,7 @@ public class PorudzbinaRestController {
 		return porudzbinaRepository.findByPlacenoTrue();
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@DeleteMapping("porudzbina/{id}")
 	public ResponseEntity<Porudzbina> deletePorudzbina(@PathVariable ("id") Integer id){
@@ -54,6 +56,7 @@ public class PorudzbinaRestController {
 	}
 
 	// insert
+	@CrossOrigin
 	@PostMapping("porudzbina")
 	public ResponseEntity<Porudzbina> insertPorudzbina(@RequestBody Porudzbina porudzbina){
 		if(!porudzbinaRepository.existsById(porudzbina.getId())){
@@ -64,6 +67,7 @@ public class PorudzbinaRestController {
 	}
 
 	// update
+	@CrossOrigin
 	@PutMapping("porudzbina")
 	public ResponseEntity<Porudzbina> updatePorudzbina(@RequestBody Porudzbina porudzbina){
 		if(!porudzbinaRepository.existsById(porudzbina.getId()))
