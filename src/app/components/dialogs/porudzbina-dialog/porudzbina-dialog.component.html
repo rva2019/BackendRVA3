@@ -1,0 +1,52 @@
+<div class="container">
+<h3 mat-dialog-title *ngIf="flag == 1">Dodavanje porudžbine</h3>
+<h3 mat-dialog-title *ngIf="flag == 2">Modifikacija porudžbine: {{data.id}}</h3>
+<h3 mat-dialog-title *ngIf="flag == 3">Brisanje porudžbine: {{data.id}}</h3>
+
+<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  <div class="form">
+    <mat-form-field>
+      <input matInput [matDatepicker]="datumKreiranja" placeholder="Datum kreiranja" [(ngModel)]="data.datum" name="datum" [disabled]="flag == 3">
+      <mat-datepicker-toggle matSuffix [for]="datumKreiranja"></mat-datepicker-toggle>
+      <mat-datepicker #datumKreiranja></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
+    <mat-form-field>
+      <input matInput [matDatepicker]="datumIsporuke" placeholder="Datum isporuke" [(ngModel)]="data.isporuceno" name="isporuceno"
+        [disabled]="flag == 3">
+      <mat-datepicker-toggle matSuffix [for]="datumIsporuke"></mat-datepicker-toggle>
+      <mat-datepicker #datumIsporuke></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
+    <mat-form-field class="example-full-width">
+      <input type="tel" matInput placeholder="Iznos" [(ngModel)]="data.iznos" name="iznos" [disabled]="flag == 3">
+      <span matSuffix>RSD</span>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
+    <mat-checkbox align="End" [(ngModel)]="data.placeno" name="placeno" [disabled]="flag == 3">Plaćeno</mat-checkbox>
+  </div>
+
+  <div class="form">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.dobavljac" placeholder="Dobavljač" name="dobavljac" [compareWith]="compareTo" [disabled]="flag == 3">
+        <mat-option *ngFor="let dobavljac of dobavljaci" [value]="dobavljac">
+          {{ dobavljac.naziv }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button *ngIf="flag == 1" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="add()">Sačuvaj</button>
+    <button mat-button *ngIf="flag == 2" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="update()">Sačuvaj</button>
+    <button mat-button *ngIf="flag == 3" [type]="submit" [mat-dialog-close]="1" (click)="delete()">Obriši</button>
+    <button mat-button (click)="cancel()" tabindex="-1">Poništi</button>
+  </div>
+</form>
+</div>

@@ -1,3 +1,58 @@
-<p>
-  porudzbina works!
-</p>
+<mat-toolbar color="primary">
+<span class="title-center">Porudžbina</span>
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+<mat-table #table [dataSource]="dataSource" class="mat-cell">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef >Id</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="datum">
+    <mat-header-cell *matHeaderCellDef>Datum kreiranja</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.datum | date : "dd.MM.yyyy."}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="isporuceno">
+    <mat-header-cell *matHeaderCellDef>Datum isporuke</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.isporuceno | date : "dd.MM.yyyy."}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="iznos">
+    <mat-header-cell *matHeaderCellDef >Iznos</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.iznos}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="placeno">
+    <mat-header-cell *matHeaderCellDef>Plaćeno</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.placeno?'Da':'Ne'}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dobavljac">
+    <mat-header-cell *matHeaderCellDef>Dobavljač</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.dobavljac.naziv}}</mat-cell>
+  </ng-container>
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="openDialog(1)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="primary" (click)="openDialog(2, row.id, row.datum, row.isporuceno, row.placeno, row.iznos, row.dobavljac)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="primary" (click)="openDialog(3, row.id, row.datum, row.isporuceno, row.placeno, row.iznos, row.dobavljac)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row style="cursor: default" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+</div>
