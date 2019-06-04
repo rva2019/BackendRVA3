@@ -1,3 +1,67 @@
-<p>
-  stavka-porudzbine works!
-</p>
+<mat-toolbar class="toolbarNew" color="primary">
+<span class="title-center">Stavka porudžbine</span>
+</mat-toolbar>
+<div class="container mat-elevation-z8">
+  <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+<mat-table #table [dataSource]="dataSource" class="mat-cell" matSort>
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="artikl">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Artikl</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.artikl.naziv}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="redniBroj">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Redni broj</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.redniBroj}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="kolicina">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Količina</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.kolicina}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="jedinicaMere">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Jedinica mere</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.jedinicaMere}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cena" >
+    <mat-header-cell *matHeaderCellDef  mat-sort-header>Cena</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.cena}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="porudzbina">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Porudžbina</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.porudzbina.id}}</mat-cell>
+  </ng-container>
+  <!-- actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="primary" (click)="openDialog(1)">
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </mat-header-cell>
+
+    <mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="primary" (click)="openDialog(2, row.id, row.redniBroj,
+        row.kolicina, row.jedinicaMere, row.cena, row.porudzbina, row.artikl)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+
+      <button mat-icon-button color="primary" (click)="openDialog(3, row.id, row.redniBroj,
+      row.kolicina, row.jedinicaMere, row.cena, row.porudzbina, row.artikl)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row style="cursor: default" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+</div>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dobavljac } from '../../models/dobavljac';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { DobavljacService } from '../../services/dobavljac.service';
 import { DobavljacDialogComponent } from '../dialogs/dobavljac-dialog/dobavljac-dialog.component';
 
@@ -13,29 +13,41 @@ import { DobavljacDialogComponent } from '../dialogs/dobavljac-dialog/dobavljac-
 })
 export class DobavljacComponent implements OnInit {
 
-  displayedColumns = ['id', 'naziv', 'adresa', 'kontakt', 'actions'];
-  dataSource: Observable<Dobavljac[]>;
-  constructor(public httpClient: HttpClient,
-              public dialog: MatDialog,
-              public dobavljacService: DobavljacService) {
-  }
+  displayedColumns = ['id', 'adresa', 'naziv', 'kontakt', 'actions'];
+  dataSource: MatTableDataSource<Dobavljac>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  constructor(public dobavljacService: DobavljacService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadData();
   }
 
   public loadData() {
-    this.dataSource = this.dobavljacService.getAllDobavljac();
-  }
+    this.dobavljacService.getAllDobavljac().subscribe(data =>{
+      this.dataSource = new MatTableDataSource(data);
 
-  public openDialog(flag: number, id: number, naziv: string, adresa: string, kontakt: string) {
-    const dialogRef = this.dialog.open(DobavljacDialogComponent, 
-                      { data: { id: id, naziv: naziv, adresa: adresa, kontakt: kontakt } });
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+}
+
+  public openDialog(flag: number, id: number, adresa: string, naziv: string, kontakt: string) {
+    const dialogRef = this.dialog.open(DobavljacDialogComponent, { data: { id: id, adresa: adresa, naziv: naziv, kontakt: kontakt } });
     dialogRef.componentInstance.flag = flag;
     dialogRef.afterClosed().subscribe(result => {
       if (result == 1)
         this.loadData();
     });
+  }
+
+  applyFilter(filterValue: string){
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLocaleLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
 }

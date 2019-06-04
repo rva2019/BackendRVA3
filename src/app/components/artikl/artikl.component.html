@@ -1,24 +1,28 @@
 <mat-toolbar color="primary">
-<span class="title-center">Artikl</span>
+  <span class="title-center">Artikl</span>
 </mat-toolbar>
 
 <div class="container mat-elevation-z8">
-<mat-table [dataSource]="dataSource" class="mat-cell">
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
   <!-- ID Column -->
   <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
     <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="naziv">
-    <mat-header-cell *matHeaderCellDef>Naziv</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Naziv</mat-header-cell>
     <mat-cell *matCellDef="let row"> {{row.naziv}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="proizvodjac">
-    <mat-header-cell *matHeaderCellDef>Proizvođač</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Proizvođač</mat-header-cell>
     <mat-cell *matCellDef="let row"> {{row.proizvodjac}}</mat-cell>
   </ng-container>
 
@@ -43,4 +47,9 @@
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row style="cursor: default" *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+
+<mat-paginator [pageSize]="[5]"
+                [pageSizeOptions]="[5, 10, 20]"
+                [showFirstLastButtons]="true" >
+</mat-paginator>
 </div>

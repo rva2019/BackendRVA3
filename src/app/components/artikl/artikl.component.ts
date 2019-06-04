@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Artikl } from '../../models/artikl';
 import { HttpClient } from '@angular/common/http';
 import { ArtiklService } from '../../services/artikl.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ArtiklDialogComponent } from '../dialogs/artikl-dialog/artikl-dialog.component';
 
 @Component({
@@ -14,8 +14,12 @@ import { ArtiklDialogComponent } from '../dialogs/artikl-dialog/artikl-dialog.co
 export class ArtiklComponent implements OnInit {
 
   displayedColumns = ['id', 'naziv', 'proizvodjac', 'actions'];
-  dataSource: Observable<Artikl[]>;
-  
+  // dataSource: Observable<Artikl[]>;
+
+  dataSource: MatTableDataSource<Artikl>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(public httpClient: HttpClient,
               public dialog: MatDialog,
               public artiklService: ArtiklService) {
@@ -26,7 +30,26 @@ export class ArtiklComponent implements OnInit {
   }
 
   public loadData() {
-    this.dataSource = this.artiklService.getAllArtikl();
+    this.artiklService.getAllArtikl().subscribe(data =>{
+      this.dataSource = new MatTableDataSource(data);
+      //ignoriši mala/velika slova pri sortiranju ali za id nemoj da prebacuješ u mala slova
+      this.dataSource.sortingDataAccessor = (data, property) => {
+        switch (property) {
+          case 'id': return data[property];
+          default: return data[property].toLocaleLowerCase();
+        }
+      };
+ 
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+ 
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   public openDialog(flag: number, id: number, naziv: string, proizvodjac: string) {
